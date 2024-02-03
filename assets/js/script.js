@@ -3,8 +3,20 @@
 // in the html.
 $(function () {
 
+  var currentDate=dayjs()
+  var currentHour=dayjs().hour()
 
+var currentDayEl=$("#currentDay")
 
+currentDayEl.text(currentDate.format("dddd, MMM DD"))
+
+for (var i=9; i < 17; i++ ){
+  var parentId=$("#hour-" +i)
+  if(i===currentHour){
+
+  }
+  else if(i )
+}
 
 
 });

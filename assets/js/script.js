@@ -22,28 +22,31 @@ $(function () {
       (i > currentHour)// for future
       textarea.addClass("future")
     }
-
+    var value=localStorage.getItem("hour-" + i)
+    textarea.val(value)
   }
 
   var saveBtnEl = $(".saveBtn")
 
   function saveEvent(event) {
-    var textareaEl;
+    var textareaEl
+    var parentId
     if ($(event.target).attr("class") === "fas fa-save") { //i element
       var iEl = $(event.target) // event target is current selector
       textareaEl = iEl.parent().siblings('textarea')
       console.log(iEl, "current button")
       console.log(textareaEl, "sibling of button")
+      parentId= $(event.target).parent().parent().attr("id")
     }
     else {
       //button
-
-    }
-
-    var buttonEl = $(event.target) // event target is current selector
+      var buttonEl = $(event.target) // event target is current selector
     textareaEl = buttonEl.siblings('textarea')
     console.log(buttonEl, "current button")
     console.log(textareaEl, "sibling of button")
+    parentId= $(event.target).parent().attr("id")
+    }
+    localStorage.setItem(parentId, textareaEl.val())
   }
 
   saveBtnEl.on("click", saveEvent)

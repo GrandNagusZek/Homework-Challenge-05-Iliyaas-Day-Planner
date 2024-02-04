@@ -1,75 +1,65 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+// The code is wrapped in a jQuery document ready function, ensuring that it runs when the DOM is fully loaded.
 $(function () {
 
+  // Getting the current date and hour using the Day.js library.
   var currentDate = dayjs()
   var currentHour = dayjs().hour()
 
+  // Selecting the element with the ID "currentDay" to display the current date.
   var currentDayEl = $("#currentDay")
 
   currentDayEl.text(currentDate.format("dddd, MMM DD"))
 
+  // Looping through hours (9 to 17) to set classes for past, present, and future time slots.
   for (var i = 9; i < 18; i++) {
     var parentId = $("#hour-" + i)
     var textarea = parentId.children('textarea')
-    if (i === currentHour) { // for present
-      textarea.addClass("present")
+    if (i === currentHour) {
+      textarea.addClass("present") // Adding a class for the present hour.
     }
-    else if (i < currentHour) { // for past
-      textarea.addClass("past")
+    else if (i < currentHour) {
+      textarea.addClass("past") // Adding a class for past hours.
     } else {
-      (i > currentHour)// for future
-      textarea.addClass("future")
+      (i > currentHour)
+      textarea.addClass("future") // Adding a class for future hours.
     }
-    var value=localStorage.getItem("hour-" + i)
+    // Retrieving stored values from localStorage and setting the textarea values accordingly.
+    var value = localStorage.getItem("hour-" + i)
     textarea.val(value)
   }
-
+  // Selecting elements with the class "saveBtn" to handle click events.
+  var saveBtnEl = $(".saveBtn");
   var saveBtnEl = $(".saveBtn")
 
+  // Function to handle saving events when the save button is clicked.
   function saveEvent(event) {
     var textareaEl
     var parentId
+
+    // Checking if the clicked element is an "i" element (icon) or a "button" element.
     if ($(event.target).attr("class") === "fas fa-save") { //i element
       var iEl = $(event.target) // event target is current selector
       textareaEl = iEl.parent().siblings('textarea')
       console.log(iEl, "current button")
       console.log(textareaEl, "sibling of button")
-      parentId= $(event.target).parent().parent().attr("id")
+      parentId = $(event.target).parent().parent().attr("id")
     }
     else {
       //button
       var buttonEl = $(event.target) // event target is current selector
-    textareaEl = buttonEl.siblings('textarea')
-    console.log(buttonEl, "current button")
-    console.log(textareaEl, "sibling of button")
-    parentId= $(event.target).parent().attr("id")
+      textareaEl = buttonEl.siblings('textarea')
+      console.log(buttonEl, "current button")
+      console.log(textareaEl, "sibling of button")
+      parentId = $(event.target).parent().attr("id")
     }
+
+    // Storing the textarea value in localStorage with the corresponding ID.
     localStorage.setItem(parentId, textareaEl.val())
   }
 
+  // Attaching the saveEvent function to the click event of elements with the class "saveBtn".
   saveBtnEl.on("click", saveEvent)
 
 });
 
 
-
-// TODO: Add a listener for click events on the save button. This code should
-// use the id in the containing time-block as a key to save the user input in
-// local storage. HINT: What does `this` reference in the click listener
-// function? How can DOM traversal be used to get the "hour-x" id of the
-// time-block containing the button that was clicked? How might the id be
-// useful when saving the description in local storage?
-//
-// TODO: Add code to apply the past, present, or future class to each time
-// block by comparing the id to the current hour. HINTS: How can the id
-// attribute of each time-block be used to conditionally add or remove the
-// past, present, and future classes? How can Day.js be used to get the
-// current hour in 24-hour time?
-//
-// TODO: Add code to get any user input that was saved in localStorage and set
-// the values of the corresponding textarea elements. HINT: How can the id
-// attribute of each time-block be used to do this?
-//
-// TODO: Add code to display the current date in the header of the page.

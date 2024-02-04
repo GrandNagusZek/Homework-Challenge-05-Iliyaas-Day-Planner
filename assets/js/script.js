@@ -10,7 +10,7 @@ $(function () {
 
   currentDayEl.text(currentDate.format("dddd, MMM DD"))
 
-  for (var i = 9; i < 17; i++) {
+  for (var i = 9; i < 18; i++) {
     var parentId = $("#hour-" + i)
     var textarea = parentId.children('textarea')
     if (i === currentHour) { // for present

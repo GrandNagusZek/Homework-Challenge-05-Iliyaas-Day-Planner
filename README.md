@@ -17,6 +17,13 @@ https://github.com/GrandNagusZek/Homework-Challenge-05-Iliyaas-Day-Planner.git
 
 Link to live application: 
 
+https://grandnaguszek.github.io/Homework-Challenge-05-Iliyaas-Day-Planner/
+
+Screenshot of application:
+
+![Screenshot of Daily Planner application](./assets/Daily%20Planner%20Screenshot.png)
+
+
 
 ## Usage
 
